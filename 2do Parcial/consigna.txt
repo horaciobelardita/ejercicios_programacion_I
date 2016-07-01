@@ -1,0 +1,51 @@
+
+
+    Deberán realizar dos programas  en lenguaje Python, denominado prog1.py y prog2.py Con la siguiente consigna.
+
+    Prog1.py
+
+    Realizar un programa de carga de datos por teclado hasta que la edad sea cero,  y grabar lo ingresado en un archivo denominado emple.txt.
+
+    Datos a ingresar por teclado:
+
+    Edad, Nombre Y Apellido, Sueldo Básico, sexo (1 varón, 2 mujer), Categoría (1.-Administrativo, 2 Mecánico 3 Chofer).
+
+     
+
+    Prog2.py
+
+    Leer el archivo creado e informar:
+
+    Cantidad de personas ingresadas
+
+    El total de sueldo a pagar
+
+    El promedio de sueldo a pagar
+
+    Total de sueldos clasificado por categoría (Administrativo,  Mecánico, Chófer).-
+
+    La cantidad de Personas entre 20 y 40 años
+
+    La cantidad de Personas entre 25 y 30 años con categoría Administrativo
+
+    La cantidad de Mecánicos con sueldo > 500 y menos a 2000 pesos
+
+    Cantidad de persona que se llama Pepe
+
+    Cantidad de personas que se llama José y es chófer.
+
+    Cantidad de Mujeres
+
+    Cantidad de mujeres administrativa y se llame maría
+
+    Cantidad de varones entre 20 y 40 años de edad, solteros.
+    Imprimir el título cada 20 renglones según diseño
+    padrón de empleados
+    Nombre Y Apellido, Sueldo Básico, sexo  Categoría
+    xxx
+    xxx
+    total general de sueldo básico   xxx
+    indicar con palabras el sexo y la categoría. Ej. si es en el campo sexo tiene 1 escribir la palabra varón
+    Si la categoría es 2 escribir mecánico .
+
+
