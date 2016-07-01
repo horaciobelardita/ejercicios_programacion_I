@@ -1,0 +1,13 @@
+Tomar como modelo el ejercicio, que se encuentra en la opción, y realizar la siguiente consigna. Documento • Software > • PYTHON > • Ejemplo_para_dar_Clase
+
+altaemple.py (Alta empleados por código de registro)
+
+Maeemple # --codigo---edad----nyape----sbas--,Existencia (1 si 0 no)
+
+Carga de datos Alta de Empleado
+
+Se ingresa la clave (código de empleado). Si la clave es cero, se sale de programa. Si la clave no es cero, se accede al archivo de Maeemple y se verifica que la misma exista. En caso de que exista la clave, se emite un mensaje “No se puede dar de alta, clave ya existe. Sólo puede modificar o borrar.” En el caso de que la clave no exista, se procede a cargar y guardar la información necesaria en el archivo
+
+Modificación de registros Es casi el mismo proceso que el anterior, basta que se verifique en el archivo maestro la existencia de un empleado mediante su código. En caso de que exista, se transfiere el contenido de las variables de archivos a las variables de programa y se procede a modificar los datos. En el caso de que no exista la clave en el archivo, se imprime el mensaje “No se puede modificar porque no existe.”
+
+Baja de registros Mismo proceso que el de modificación, con la salvedad de que si se encuentra el empleado, se marca ese registro de manera tal que aparezca como borrado (Baja lógica).
