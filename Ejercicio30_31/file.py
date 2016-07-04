@@ -1,11 +1,12 @@
-import sys
+import sys, os
 
 BANKS_FILE = 'maebancos.txt'
 ACCOUNTS_FILE = 'maecuentas.txt'
+TRANSACTION_FILE = 'movimientos.txt'
 
 banks = {}
 accounts = {}
-
+transactions = {}
 
 def upload_banks():
     try:
@@ -128,6 +129,80 @@ def add_account(bank_id):
         print "El Banco no existe!!"
         pause()
 
+def options():
+    receipts = ['Cheque', 'Boleta de Deposito', 'Nota de Debito', 'Nota de Credito']
+    options = ''
+    for k, receipt in enumerate(receipts):
+        options += "{0}) {1}\n".format(k+1, receipt)
+    options += "Elija una opcion: "
+    while True:
+        try:
+            opt = int(raw_input(options))
+            if 1 <= opt <= 4:
+                return receipts[opt - 1]
+            else:
+                continue
+        except ValueError:
+            print "Presta atencion, opcion no valida!!!"
+
+def get_id():
+    count = 0
+    if os.path.isfile(TRANSACTION_FILE):
+        with open(TRANSACTION_FILE, 'r') as fr:
+            for line in fr:
+                count += 1
+        return count
+    return count + 1
+
+def transaction_to_s(transaction_id, account_id, date,
+                    receipt_number, receipt_type, detail, due_date, amount):
+    return "{0},{1},{2},{3},{4},{5},{6},{7}\n".format(transaction_id,
+                                            account_id,
+                                            date,
+                                            receipt_number,
+                                            receipt_type,
+                                            detail,
+                                            due_date,
+                                            amount)
+
+def save_transactions():
+    with open(TRANSACTION_FILE, 'a') as fw:
+        for key, value in transactions.items():
+            record = transaction_to_s(key,
+                                     value['account_id'],
+                                     value['date'],
+                                     value['receipt_number'],
+                                     value['receipt_type'],
+                                     value['detail'],
+                                     value['due_date'],
+                                     value['amount'])
+            fw.write(record)
+
+def add_transaction(account_id):
+    account = search(account_id, accounts)
+    if account:
+        print "Descripcion de cuenta: {0}".format(account['description'])
+        bank_id = account['bank_id']
+        bank = search(bank_id, banks)
+        print "Codigo Banco: {0}".format(bank_id)
+        print "Descripcion Banco: {0}".format(bank)
+        date = raw_input("Fecha: ")
+        receipt_number = int(raw_input("Numero de comprobante: "))
+        receipt_type = options()
+        detail = raw_input('Detalle: ')
+        due_date = raw_input("Fecha de vencimiento: ")
+        amount = float(raw_input("Importe: "))
+        transaction_id = get_id()
+        transactions[transaction_id] = {'account_id': account_id,
+                                        'date' : date,
+                                        'receipt_number' : receipt_number,
+                                        'receipt_type' : receipt_type,
+                                        'detail' : detail,
+                                        'due_date' : due_date,
+                                        'amount' : amount}
+        save_transactions()
+
+
 
 
 def pause():
@@ -169,6 +244,8 @@ def menu():
         clear_screen()
         upload_banks()
         upload_accounts()
+        print banks
+        print accounts
         prompt = "1)ABM Banco\n2)Alta de Cuenta\n3)Carga libro banco\n"
         prompt += "4) Informe Libro Banco\n5)Salir\nElija una opcion: "
         opc = int(raw_input(prompt))
@@ -177,6 +254,9 @@ def menu():
         elif opc == 2:
             bank_id = raw_input("Codigo de banco: ")
             add_account(bank_id)
+        elif opc == 3:
+            account_id = raw_input("Codigo de cuenta: ")
+            add_transaction(account_id)
         elif opc == 5:
             sys.exit()
 menu()
