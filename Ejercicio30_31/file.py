@@ -179,6 +179,7 @@ def save_transactions():
             fw.write(record)
 
 def add_transaction(account_id):
+    clear_screen()
     account = search(account_id, accounts)
     if account:
         print "Descripcion de cuenta: {0}".format(account['description'])
@@ -201,9 +202,88 @@ def add_transaction(account_id):
                                         'due_date' : due_date,
                                         'amount' : amount}
         save_transactions()
+        print "Movimiento guardado con exito!!!"
+        pause()
+
+def upload_transactions():
+    try:
+        f = open(TRANSACTION_FILE, 'r')
+        for line in f.readlines():
+            record = line.split(',')
+            # id de cuenta
+            account_id = record[1]
+            if account_id not in transactions:
+                transactions[account_id] = []
+            account = search(account_id, accounts)
+            # id de banco
+            bank_id = account['bank_id']
+            # descripcion del banco
+            description = search(bank_id, banks)
+            # fecha
+            date = record[2]
+            # numero de comprobante
+            receipt_number = record[3]
+            # tipo de comprobante
+            receipt_type = record[4]
+            # Detalle
+            detail = record[5]
+            # fecha de vencimiento
+            due_date = record[6]
+            amount = float(record[7])
+            transactions[account_id].append({'bank_id': bank_id,
+                                            'description': description,
+                                            'date': date,
+                                            'detail' : detail,
+                                            'receipt_number':receipt_number,
+                                             'receipt_type' : receipt_type,
+                                             'due_date' : due_date,
+                                             'amount' : amount})
+        f.close()
+    except IOError:
+        return accounts
+
+def es_debe(receipt_type):
+    if receipt_type == "Cheque" or receipt_type == "Nota de Debito":
+        return True
+    return False
 
 
-
+def show_summary(account_id):
+    upload_transactions()
+    account = search(account_id, accounts)
+    if account:
+        total_debe = 0
+        total_haber = 0
+        saldo = 0
+        print "Descripcion de cuenta: {0}".format(account['description'])
+        bank_id = account['bank_id']
+        bank = search(bank_id, banks)
+        print "Codigo Banco: {0}".format(bank_id)
+        print "Descripcion Banco: {0}".format(bank)
+        for item in transactions[account_id]:
+            print "Fecha: {0}".format(item['date'])
+            print "Detalle: {0}".format(item['detail'])
+            print "Nro comprobante: {0}".format(item['receipt_number'])
+            print "Tipo comprobante: {0}".format(item['receipt_type'])
+            if es_debe(item['receipt_type']):
+                print "Debe: ${0}".format(item['amount'])
+                total_debe += item['amount']
+                saldo += item['amount']
+                print "Haber: $0"
+            else:
+                print "Debe: $0"
+                total_haber += item['amount']
+                saldo -= item['amount']
+                print "Haber : ${0}".format(item['amount'])
+            print "Fecha Vencimiento: {0}".format(item['due_date'])
+            print "-" * 50
+        print "Total Debe: ${0}".format(total_debe)
+        print "Total Haber: ${0}".format(total_haber)
+        print "Total Saldo: ${0}".format(saldo)
+        pause()
+    else:
+        print "La cuenta no existe!!!"
+        pause()
 
 def pause():
     raw_input("Oprima una tecla para continuar")
@@ -255,6 +335,14 @@ def menu():
         elif opc == 3:
             account_id = raw_input("Codigo de cuenta: ")
             add_transaction(account_id)
+        elif opc == 4:
+            account_id = raw_input("Codigo de cuenta: ")
+            show_summary(account_id)
         elif opc == 5:
             sys.exit()
 menu()
+# upload_banks()
+# upload_accounts()
+# upload_transactions()
+# for value in transactions['123']:
+#     print value
