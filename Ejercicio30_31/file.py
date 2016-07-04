@@ -36,7 +36,7 @@ class Banks:
             pause()
 
     def to_s(self, id, description):
-        return "{0:4.4},{1:30.30}\n".format(id, description)
+        return "{0},{1}\n".format(id, description)
 
     def save(self):
         f = open('maebancos.txt', 'w')
@@ -85,6 +85,68 @@ class Banks:
             print "El banco no existe!!"
             pause()
 
+class BankAccount():
+
+    def __init__(self, filename):
+        self.filename = filename
+        self.accounts = {}
+        self.load()
+
+    def load(self):
+        try:
+            fr = open(self.filename, 'r')
+            self.upload_in_memory(fr)
+        except IOError:
+            return
+
+    def upload_in_memory(self, f):
+        for line in f.readlines():
+            record = line.split(',')
+            # id de cuenta
+            id = record[0].strip()
+            # id de banco
+            bank = record[1].strip()
+            # Descripcion de cuenta
+            description = record[2].strip()
+            self.accounts[id] = {'bank_id':bank, 'description': description}
+
+    def search(self, id):
+        if id in self.accounts:
+            return self.accounts[id]
+        return None
+
+
+    def to_s(self, account_id, bank_id, description):
+        return "{0},{1},{2}\n".format(account_id, bank_id, description)
+
+    def save(self):
+        fw = open(self.filename, 'w')
+        for key, value in self.accounts.items():
+            record = self.to_s(key, value['bank_id'], value['description'])
+            fw.write(record)
+        fw.close()
+
+
+    def add(self, bank_id):
+        banks = Banks('maebancos.txt')
+        bank = banks.search(bank_id)
+        if bank:
+            print bank
+            account_id = raw_input('Codigo de cuenta: ')
+            if not self.search(account_id):
+                description = raw_input("Descripcion de la cuenta: ")
+                self.accounts[account_id] = {'bank_id' : bank_id, 'description': description}
+                self.save()
+                print "Cuenta dada de alta con exito!!"
+                pause()
+            else:
+                print "La cuenta ya existe!!"
+                pause()
+        else:
+            print "El Banco no existe!!"
+            pause()
+
+
 
 def pause():
     raw_input("Oprima una tecla para continuar")
@@ -130,7 +192,9 @@ def menu():
         if opc == 1:
             sub_menu()
         elif opc == 2:
-            pass
+            accounts = BankAccount('maecuentas.txt')
+            bank_id = raw_input("Codigo de banco: ")
+            accounts.add(bank_id)
         elif opc == 5:
             sys.exit()
 menu()
