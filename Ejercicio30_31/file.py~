@@ -341,3 +341,8 @@ def menu():
         elif opc == 5:
             sys.exit()
 menu()
+# upload_banks()
+# upload_accounts()
+# upload_transactions()
+# for value in transactions['123']:
+#     print value
