@@ -146,13 +146,13 @@ def options():
             print "Presta atencion, opcion no valida!!!"
 
 def get_id():
-    count = 0
+    count = 1
     if os.path.isfile(TRANSACTION_FILE):
         with open(TRANSACTION_FILE, 'r') as fr:
             for line in fr:
                 count += 1
         return count
-    return count + 1
+    return count
 
 def transaction_to_s(transaction_id, account_id, date,
                     receipt_number, receipt_type, detail, due_date, amount):
@@ -244,8 +244,6 @@ def menu():
         clear_screen()
         upload_banks()
         upload_accounts()
-        print banks
-        print accounts
         prompt = "1)ABM Banco\n2)Alta de Cuenta\n3)Carga libro banco\n"
         prompt += "4) Informe Libro Banco\n5)Salir\nElija una opcion: "
         opc = int(raw_input(prompt))
