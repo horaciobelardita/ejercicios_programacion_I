@@ -1,3 +1,5 @@
+# 4. Generar una matriz de 5 filas y 7 columnas, sumar los valores de las filas y los valores de las columnas.
+
 import random
 
 def crear_matriz(filas, columnas):

@@ -1,3 +1,5 @@
+# 3. Cargar una matriz de 4x3 elementos ( M(4,3) ) por filas.
+
 import random
 
 def crear_matriz(filas, columnas):

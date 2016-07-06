@@ -1,14 +1,4 @@
-def validar_opcion(msg, bajo, alto):
-    while True:
-        try:
-            opc = input(msg)
-            if  bajo <= opc <= alto:
-                return opc
-            else:
-                print 'Presta atencion, opcion no valida \n'
-        except ValueError:
-            print 'Presta atencion, solo numeros \n'
-
+import sys
 
 def CargaCliente(FileCargaCli):
     nombrecli = raw_input('\n Ingrese nombre Cliente \n')
@@ -119,6 +109,7 @@ def CargaMov(FileCargaMov, FileCargaCli):
     raw_input("Oprima una tecla para continuar")
 
 def buscar_cliente(cod, nombre_archivo):
+    '''Dado un codigo de cliente y un archivo lo busca en el mismo'''
     pos = (cod * 40) - 40
     with open(nombre_archivo, 'r') as f:
         f.seek(pos, 0)
@@ -131,6 +122,7 @@ def buscar_cliente(cod, nombre_archivo):
     return None
 
 def mostrar_movimientos(registro, FileCargaMov):
+    '''Muesta linea por linea los registros de movimientos'''
     posini = int(registro[2])
     posfin = int(registro[3])
     archmov = open(FileCargaMov, 'r')
@@ -156,25 +148,36 @@ def mostrar_movimientos(registro, FileCargaMov):
     archmov.close()
 
 def Movivimientos(FileCargaCli, FileCargaMov):
+    '''Dado un codigo de cliente muestra todos sus Movimientos
+    registrados en el archivo de Movimientos'''
     codcli = input("Codigo de cliente: ")
     registro = buscar_cliente(codcli, FileCargaCli)
     # existe el cliente
     if registro:
-        print "Movimientos: "
+        print "Movimientos"
         mostrar_movimientos(registro, FileCargaMov)
     else:
         print "El cliente no existe!!!"
     raw_input("<< Presione una tecla para continuar >>")
 
+
+def mostrar_menu():
+    print """
+    MENU
+    1. Carga Cliente
+    2. Carga Movimiento
+    3. Mostrar Movimientos
+    4. Salir
+    """
+def salir():
+    print "Gracias por usar este programa!!!"
+    sys.exit(0)
+
+
 def main():
     while True:
-        msg = '\n ___MENU____ \n'
-        msg += '1= Carga Cliente \n'
-        msg += '2= Carga Movimiento \n'
-        msg += '3= Mostrar Movimientos \n '
-        msg += '4= sair \n'
-        msg += '_____________________\n'
-        opcion = validar_opcion(msg, 1, 4)
+        mostrar_menu()
+        opcion = input("Elija una opcion: ")
         if opcion == 1:
             CargaCliente("cargacliLista.txt")
         elif opcion == 2:
@@ -182,7 +185,9 @@ def main():
         elif opcion == 3:
             Movivimientos("cargacliLista.txt", "cargamovLista.txt")
         elif opcion == 4:
-            break
+            salir()
+        else:
+            print "{0}, opcion no valida.".format(opcion)
 
 
 main()
