@@ -5,3 +5,4 @@
 3,555,1/03/2016,123,Nota de Debito,debito,10/04/2016,1500.0
 6,123,xxx,1000,Boleta de Deposito,de,xxx,1550.0
 7,123,11,11,Nota de Credito,xxx,xx,1000.0
+8,110,10xx,110,Cheque,xxx,xxx,100.0

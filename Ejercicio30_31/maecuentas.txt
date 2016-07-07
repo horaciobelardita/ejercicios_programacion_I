@@ -1,5 +1,6 @@
+156,2,pesos
 555,5,dolares
 666,1,euros
 123,1,pesos
 111,5,pesos
-156,2,pesos
+110,3,pesos

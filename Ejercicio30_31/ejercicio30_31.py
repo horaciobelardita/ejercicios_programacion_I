@@ -141,9 +141,9 @@ def options():
             if 1 <= opt <= 4:
                 return comprobantes[opt - 1]
             else:
-                continue
+                print "{0} opcion no valida!!".format(opt)
         except ValueError:
-            print "Presta atencion, opcion no valida!!!"
+            print "Presta atencion, solo numeros!!!"
 
 def obtener_id():
     count = 1
@@ -203,6 +203,9 @@ def agregar_movimiento(id_cuenta):
                                         'importe' : importe}
         guardar_movimientos()
         print "Movimiento guardado con exito!!!"
+        pausa()
+    else:
+        print "La cuenta no existe!!"
         pausa()
 
 def subir_movimientos():
@@ -318,6 +321,9 @@ def sub_menu():
             mostrar(id)
         elif opc == 5:
             menu()
+        else:
+            print "{0}, opcion no valida..".format(opc)
+            pausa()
 
 def menu():
     while True:
@@ -340,4 +346,7 @@ def menu():
             informe(id_cuenta)
         elif opc == 5:
             sys.exit()
+        else:
+            print "{0}, opcion no valida..".format(opc)
+            pausa()
 menu()
