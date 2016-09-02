@@ -1,0 +1,11 @@
+maestro de vendedores
+Codigo de vendedor | nombre y apellido
+
+maestro articulo
+codigo articulo | descripcion | precio unitario
+
+novedades
+cod vendedor | cod articulo | nro factura | fecha | cantidad | precio unitario
+
+seleccionar el articulo de mayor venta
+y el peor mes de venta de dicho articulo

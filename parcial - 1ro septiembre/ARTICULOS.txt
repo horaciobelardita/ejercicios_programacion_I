@@ -1,0 +1,6 @@
+1,Pepsi,15
+2,Coca cola,15
+3,Fanta,34
+4,Fiambre,45
+5,Queso,153
+6,Mouse,13

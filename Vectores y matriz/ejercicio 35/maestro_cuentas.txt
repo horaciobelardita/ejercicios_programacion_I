@@ -1,0 +1,4 @@
+1,11,Pesos
+2,22,Dolares
+3,33,Euros
+1,44,Dolares

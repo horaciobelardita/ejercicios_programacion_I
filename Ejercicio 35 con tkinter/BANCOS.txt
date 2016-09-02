@@ -1,0 +1,6 @@
+1,Macro
+2,Rio
+3,Nacion
+4,Galicia
+5,Santander
+6,Sur
